@@ -9,7 +9,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent login = FXMLLoader.load(getClass().getResource("../resources/loginUflib.fxml"));
+        Parent login = FXMLLoader.load(getClass().getResource("resources/login.fxml"));
 
         Scene loginform = new Scene(login);
 
