@@ -1,0 +1,11 @@
+.btn{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: linear-gradient(to top left, #59409f, #78709f);
+    -fx-border-radius: 20;
+}
+.btn:hover{
+    -fx-opacity: 0.5;
+}
+.linear-gradient{
+    -fx-background-color: linear-gradient(to bottom left, #482BA9, #6B50B8);
+}
