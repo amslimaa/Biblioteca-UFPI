@@ -1,7 +1,6 @@
 package controllers;
 
 import animatefx.animation.ZoomIn;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
