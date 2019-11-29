@@ -1,7 +1,7 @@
 package biblioteca;
 
 public class TecAdministrativo extends Locatario {
-    public TecAdministrativo(int matricula, String nome, String senha) {
+    public TecAdministrativo(long matricula, String nome, String senha) {
         super(matricula, nome, senha);
     }
 
@@ -15,5 +15,8 @@ public class TecAdministrativo extends Locatario {
 
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

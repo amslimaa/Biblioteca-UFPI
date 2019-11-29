@@ -1,7 +1,7 @@
 package biblioteca;
 
 public class Aluno extends Locatario {
-    public Aluno(int matricula, String nome, String senha) {
+    public Aluno(long matricula, String nome, String senha) {
         super(matricula, nome, senha);
     }
 
@@ -15,4 +15,8 @@ public class Aluno extends Locatario {
 
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

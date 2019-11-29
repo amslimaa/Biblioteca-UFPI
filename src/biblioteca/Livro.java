@@ -50,4 +50,15 @@ public class Livro {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "codigo=" + codigo +
+                ", quanditade=" + quanditade +
+                ", ano=" + ano +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                '}';
+    }
 }

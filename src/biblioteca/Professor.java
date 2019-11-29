@@ -1,9 +1,11 @@
 package biblioteca;
 
 public class Professor extends Locatario  {
-    public Professor(int matricula, String nome, String senha) {
+    public Professor(long matricula, String nome, String senha) {
         super(matricula, nome, senha);
     }
+
+
 
     @Override
     public void locarLivro(Livro livro) {
@@ -15,5 +17,8 @@ public class Professor extends Locatario  {
 
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

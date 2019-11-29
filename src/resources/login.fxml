@@ -34,11 +34,11 @@
                               <Font name="FontAwesome Regular" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textFieldLogin1" layoutX="27.0" layoutY="172.0" prefHeight="35.0" prefWidth="277.0" promptText="Nome" />
+                        <TextField fx:id="tfNome" layoutX="27.0" layoutY="172.0" prefHeight="35.0" prefWidth="277.0" promptText="Nome" />
                         <TextField fx:id="tfMatricula" layoutX="26.0" layoutY="224.0" prefHeight="35.0" prefWidth="277.0" promptText="Matricula" />
-                        <PasswordField fx:id="pwInput1" layoutX="26.0" layoutY="278.0" prefHeight="35.0" prefWidth="277.0" promptText="Senha" />
+                        <PasswordField fx:id="pwSenha" layoutX="26.0" layoutY="278.0" prefHeight="35.0" prefWidth="277.0" promptText="Senha" />
                         <ButtonBar layoutX="198.0" layoutY="43.0" prefHeight="40.0" prefWidth="141.0" />
-                        <Button layoutX="26.0" layoutY="376.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="277.0" styleClass="btn" text="Cadastrar" />
+                        <Button fx:id="cadLocatario" layoutX="26.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="277.0" styleClass="btn" text="Cadastrar" />
                         <ImageView fx:id="btnBack" fitHeight="22.0" fitWidth="27.0" layoutX="19.0" layoutY="27.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
                            <image>
                               <Image url="@icons/icons8_back_100px.png" />
