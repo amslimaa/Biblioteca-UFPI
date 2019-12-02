@@ -1,7 +1,7 @@
 package biblioteca;
 
 public class Aluno extends Locatario {
-    public Aluno(long matricula, String nome, String senha) {
+    public Aluno(String matricula, String nome, String senha) {
         super(matricula, nome, senha);
     }
 

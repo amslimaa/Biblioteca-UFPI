@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Biblioteca {
-    Configuracao config = new Configuracao();
+    Configuracao config;
     List<Livro> acervo = new ArrayList<Livro>();
     List<Locatario> usuarios = new ArrayList<Locatario>();
     List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
     List<Reserva> reservas = new ArrayList<Reserva>();
+
+    public Biblioteca(Configuracao config) {
+        this.config = config;
+    }
 
     public List<Reserva> getReservas() {
         return reservas;
@@ -49,21 +53,21 @@ public class Biblioteca {
                 titulo,
                 autor));
     }
-    public void addAluno(long matricula, String nome, String senha){
+    public void addAluno(String matricula, String nome, String senha){
         this.getUsuarios().add(new Aluno(
                 matricula,
                 nome,
                 senha
         ));
     }
-    public void addProfessor(long matricula, String nome, String senha){
+    public void addProfessor(String matricula, String nome, String senha){
         this.getUsuarios().add(new Professor(
                 matricula,
                 nome,
                 senha
         ));
     }
-    public void addTecnico(long matricula, String nome, String senha){
+    public void addTecnico(String matricula, String nome, String senha){
         this.getUsuarios().add( new TecAdministrativo(
                 matricula,
                 nome,

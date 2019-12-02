@@ -8,7 +8,7 @@ public class Reserva {
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss z");
 
-    private long numero = 0;
+    private int numero = 0;
     private Livro livro;
     private Locatario locatario;
     private Date data_inicio_reserva;
@@ -25,13 +25,13 @@ public class Reserva {
         c.setTime(date);
         c.add(Calendar.DATE, +7);// por enquanto 7 dias para todos os usuarios, mas tenho que mudar de acordo com o config//
         this.data_fim_reserva = c.getTime();
-        System.out.println("Fim da reserva: "+ this.data_fim_reserva);
+        System.out.println("Fim da reserva:     "+ this.data_fim_reserva);
     }
     public long getNumero() {
         return numero;
     }
 
-    public void setNumero(long numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 

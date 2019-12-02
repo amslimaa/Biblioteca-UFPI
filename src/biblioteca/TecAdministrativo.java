@@ -1,7 +1,7 @@
 package biblioteca;
 
 public class TecAdministrativo extends Locatario {
-    public TecAdministrativo(long matricula, String nome, String senha) {
+    public TecAdministrativo(String matricula, String nome, String senha) {
         super(matricula, nome, senha);
     }
 

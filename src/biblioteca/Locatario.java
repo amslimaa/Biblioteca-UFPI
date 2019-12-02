@@ -1,27 +1,30 @@
 package biblioteca;
 
 public abstract class  Locatario {
-    private long matricula;
+    private int Id;
+    private String matricula;
     private String nome;
     private String senha;
 
-    public Locatario(){
-
-    }
-
-    public Locatario(long matricula, String nome, String senha) {
+    public Locatario(String matricula, String nome, String senha) {
         this.matricula = matricula;
         this.nome = nome;
         this.senha = senha;
     }
-    public abstract void locarLivro(Livro livro);
-    public abstract void devolverLivro(Livro livro);
 
-    public Long getMatricula() {
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(long matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
@@ -40,6 +43,10 @@ public abstract class  Locatario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public abstract void locarLivro(Livro livro);
+    public abstract void devolverLivro(Livro livro);
+
 
     @Override
     public String toString() {

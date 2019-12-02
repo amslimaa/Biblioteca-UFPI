@@ -7,7 +7,7 @@ import java.util.Date;
 public class Emprestimo {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss z");
 
-    private long numero = 0;
+    private int numero = 0;
     private Livro livro;
     private Locatario locatario;
     private Date data_emp, data_dev;

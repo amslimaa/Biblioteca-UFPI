@@ -6,25 +6,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
-
-
 public class Main extends Application {
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent login = FXMLLoader.load(getClass().getResource("resources/login.fxml"));
+        Parent login = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
 
         Scene root = new Scene(login);
-
-
         primaryStage.setTitle("BIBLIOTECA - UFPI");
         primaryStage.setScene(root);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-
 
     }
 
