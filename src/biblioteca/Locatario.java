@@ -1,15 +1,24 @@
 package biblioteca;
 
-public abstract class  Locatario {
+public class  Locatario {
     private int Id;
     private String matricula;
     private String nome;
     private String senha;
-
-    public Locatario(String matricula, String nome, String senha) {
+    private String tipo;
+    public Locatario(String matricula, String nome, String senha, String tipo) {
         this.matricula = matricula;
         this.nome = nome;
         this.senha = senha;
+        this.tipo = tipo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public int getId() {
@@ -44,9 +53,20 @@ public abstract class  Locatario {
         this.senha = senha;
     }
 
-    public abstract void locarLivro(Livro livro);
-    public abstract void devolverLivro(Livro livro);
+    public void locarLivro(Livro livro){
 
+    };
+    public void devolverLivro(Livro livro){
+
+    };
+
+
+
+    public int compareTo(Locatario o) {
+        if(this.nome.compareTo(o.getNome() )==1) return -1;
+        if (o.getNome().compareTo(this.nome) == -1) return 1;
+        return 0;
+    }
 
     @Override
     public String toString() {

@@ -34,7 +34,7 @@ public class Emprestimo {
     }
 
 
-    public long getNumero() {
+    public int getNumero() {
         return numero;
     }
 

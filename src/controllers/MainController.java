@@ -1,72 +1,319 @@
 package controllers;
-
-import Connections.dao.AlunoDAO;
-import Connections.dao.LocatarioDAO;
-import Connections.dao.ProfessorDAO;
-import Connections.dao.TecAdministrativoDAO;
+import Connections.dao.*;
 import animatefx.animation.ZoomIn;
-import biblioteca.Aluno;
-import biblioteca.Locatario;
-import biblioteca.Professor;
-import biblioteca.TecAdministrativo;
+import biblioteca.*;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainController {
+    @FXML
+    private Button btnEmprestimos = null;
 
 
+    @FXML
+    private Spinner<Integer> spinerQtd = null;
+    SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100,1);
+
+    @FXML
+    private  DatePicker  cadDatePublicacao = null;
+    @FXML
     ObservableList<String> LocatarioTipo = FXCollections.observableArrayList("Aluno", "Professor", "TecAdministrativo");
 
     @FXML
-    private Label welcomeLabel = null;
+    private AnchorPane userHomeAnchor;
 
     @FXML
-    private ChoiceBox CadChoiceBox = null;
+    private Pane homePane;
 
     @FXML
-    private Pane pnlLogin,pnlCad = null;
+    private Circle btnMin1;
 
     @FXML
-    private Object btnBack,btnLogout,btnLogoutAdmin = null;
+    private Circle btnCloseHome;
 
     @FXML
-    private Circle btnClose,btnCloseHome,btnCloseAdm = null;
+    private ImageView btnLogout;
 
     @FXML
-    private Button btnCad,cadLocatario,btnLogin = null;
+    private Label welcomeLabel;
 
     @FXML
-    private TextField tfNome,tfMatricula,pwField,inputMatLogin,pwInput = null;
+    private AnchorPane loginPane;
+
+    @FXML
+    private Pane pnlCad;
+
+    @FXML
+    private TextField tfNome;
+
+    @FXML
+    private TextField tfMatricula;
+
+    @FXML
+    private PasswordField pwField;
+
+    @FXML
+    private Button cadLocatario;
+
+    @FXML
+    private ChoiceBox<String> CadChoiceBox;
+
+    @FXML
+    private ImageView btnBack;
+
+    @FXML
+    private Pane pnlLogin;
+
+    @FXML
+    private TextField inputMatLogin;
+
+    @FXML
+    private PasswordField pwInput;
+
+    @FXML
+    private Button btnLogin;
+
+    @FXML
+    private Button btnCad;
+
+    @FXML
+    private Circle btnMin;
+
+    @FXML
+    private Circle btnClose;
+
+    @FXML
+    private AnchorPane adminAnchorPane;
+
+    @FXML
+    private Pane reservasPane;
+
+    @FXML
+    private Pane emprestimosPane;
+
+    @FXML
+    private Pane usuariosPane;
+
+    @FXML
+    private Pane acervoPane;
+
+    @FXML
+    private Pane cadLivroPane;
+
+    @FXML
+    private TextField cadCodLivro;
+
+    @FXML
+    private Button btnCadLivro;
+
+    @FXML
+    private TextField cadTitulo;
+
+    @FXML
+    private TextField cadAutor;
+
+
+
+
+    @FXML
+    private ImageView backCad;
+
+    @FXML
+    private Pane acervoList;
+
+    @FXML
+    private TableView<Livro> acervoTabela;
+
+    @FXML
+    private TableView<Locatario> tvUsuarios;
+
+
+    @FXML
+    private Button btnNovoLivro;
+
+    @FXML
+    private Button btnAcervo,btnDoEmprestimos;
+
+    @FXML
+    private Button btnUser;
+
+    @FXML
+    private Pane pnEmprestimos= null;
+    @FXML
+    private Pane pnLivros = null;
+
+    @FXML
+    private Button btnReservas;
+
+    @FXML
+    private Circle btnMin11;
+
+    @FXML
+    private Circle btnCloseAdm;
+
+    @FXML
+    private ImageView btnLogoutAdmin;
+    @FXML
+    private TableView<Livro> tvUserLivros;
+    @FXML
+    private Button btnEmprestimo = null;
+    @FXML
+    private Button btnUsersAcervo =null;
+
+    Locatario locatarioLogado;
+
+    public List<Locatario> getLocatarios(){
+        LocatarioDAO dao = new LocatarioDAO();
+        List<Locatario> locatarios = new ArrayList<>();
+        locatarios.addAll(dao.buscar());
+        return locatarios;
+    }
+
 
 
     @FXML
     public void initialize(){
         CadChoiceBox.setValue("Vinculo");
         CadChoiceBox.setItems(LocatarioTipo);
+        spinerQtd.setValueFactory(svf);
 
+        initAcervo();
+        initTvUsuarios();
     }
 
+    public void initTvUsuarios(){
+        TableColumn<Locatario, String> colMatricula = new TableColumn("Matrícula");
+        colMatricula.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMatricula()));
 
-    @FXML
-    AnchorPane userHomeAnchor,loginPane,adminAnchorPane = null;
+        TableColumn<Locatario, String> colNome = new TableColumn("Nome");
+        colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
+
+        TableColumn<Locatario, String> colSenha = new TableColumn("Senha");
+        colSenha.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSenha()));
+
+        TableColumn<Locatario, String> colTipo = new TableColumn<>("Tipo");
+        colTipo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTipo()));
 
 
-    @FXML
-    Pane acervoPane,usuariosPane,emprestimosPane,reservasPane = null;
+        tvUsuarios.getColumns().addAll(colMatricula,colNome,colSenha);
 
-    @FXML
-    private Button btnAcervo,btnUser,btnEmprestimos,btnReservas  = null;
+        tvUsuarios.getItems().addAll(getLocatarios());
+    }
+
+    public void initAcervo(){
+        TableColumn<Livro, Integer> colCodigo = new TableColumn("Código");
+        colCodigo.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getCodigo()).asObject() );
+
+        TableColumn<Livro, String> colTitulo = new TableColumn("Título");
+        colTitulo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitulo()));
+
+        TableColumn<Livro, String> colAutor = new TableColumn("Autor");
+        colAutor.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getAutor()));
+
+        TableColumn<Livro, Integer> colAno = new TableColumn("Ano");
+        colAno.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getAno()).asObject());
+
+        TableColumn<Livro, Integer> colQtd = new TableColumn("Qtd");
+        colQtd.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuanditade()).asObject());
+
+        acervoTabela.getColumns().addAll(colCodigo,colTitulo,colAutor,colAno,colQtd);
+        tvUserLivros.getColumns().addAll(colCodigo,colTitulo,colAutor,colAno,colQtd);
+
+        LivroDAO dao = new LivroDAO();
+        acervoTabela.getItems().addAll(dao.buscar());
+        tvUserLivros.getItems().addAll(dao.buscar());
+    }
 
     public void handleButtonAction(ActionEvent event) {
+
+        if (event.getSource().equals(btnUsersAcervo)){
+            new ZoomIn(pnLivros).play();
+            pnLivros.toFront();
+        }
+
+        if(event.getSource().equals(btnEmprestimos)){
+            new ZoomIn(pnEmprestimos).play();
+            pnEmprestimos.toFront();
+        }
+
+        if(event.getSource().equals(btnDoEmprestimos)){
+            Livro livro = tvUserLivros.getSelectionModel().getSelectedItem();
+
+            Emprestimo emprestimo = new Emprestimo(livro, locatarioLogado);
+            System.out.println(emprestimo);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Emprestimo");
+            alert.setHeaderText("Emprestimo relizado com sucesso!");
+            alert.setContentText(emprestimo.toString()
+                    /*"Livro:"+emprestimo.+"\n"+
+                            "Quandidade: "+ spinerQtd.getValue()+"\n"+
+                            "Ano: "+ ano+"\n"+
+                            "Titulo: "+cadTitulo.getText()+"\n"+
+                            "Autor: "+ cadAutor.getText()*/
+            );
+            alert.showAndWait();
+        }
+
+        if(event.getSource().equals(btnNovoLivro)){
+            new ZoomIn(cadLivroPane).play();
+            cadLivroPane.toFront();
+        }
+
+        if (event.getSource().equals(btnCadLivro)){
+            LivroDAO dao = new  LivroDAO();
+            String date =  cadDatePublicacao.getValue().toString();
+            String[] dateV = date.split("-");
+            int ano = Integer.parseInt(dateV[0]);
+            dao.inserir(new Livro(
+                    Integer.parseInt(cadCodLivro.getText()),
+                    spinerQtd.getValue(),
+                    ano,
+                    cadTitulo.getText(),
+                    cadAutor.getText()
+            ));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Acervo");
+            alert.setHeaderText("Livro cadastrado com sucesso!");
+            alert.setContentText(
+                    "Código:"+cadCodLivro.getText()+"\n"+
+                    "Quandidade: "+ spinerQtd.getValue()+"\n"+
+                    "Ano: "+ ano+"\n"+
+                    "Titulo: "+cadTitulo.getText()+"\n"+
+                    "Autor: "+ cadAutor.getText()
+            );
+            alert.showAndWait();
+            acervoTabela.getItems().add(new Livro(
+                    Integer.parseInt(cadCodLivro.getText()),
+                    spinerQtd.getValue(),
+                    ano,
+                    cadTitulo.getText(),
+                    cadAutor.getText()
+            ));
+            tvUserLivros.getItems().add(new Livro(
+                    Integer.parseInt(cadCodLivro.getText()),
+                    spinerQtd.getValue(),
+                    ano,
+                    cadTitulo.getText(),
+                    cadAutor.getText()
+            ));
+            new ZoomIn(acervoList).play();
+            acervoList.toFront();
+        }
+
         if(event.getSource().equals(btnReservas)){
             new ZoomIn(reservasPane).play();
             reservasPane.toFront();
@@ -80,27 +327,23 @@ public class MainController {
             acervoPane.toFront();
         }
         if(event.getSource().equals(btnUser)){
+
             new ZoomIn(usuariosPane).play();
             usuariosPane.toFront();
         }
         if(event.getSource().equals(btnLogin)){
-            AlunoDAO alunoDAO = new AlunoDAO();
-            List<Aluno> alunos = alunoDAO.buscar();
-            ProfessorDAO professorDAO = new ProfessorDAO();
-            List<Professor> professores = professorDAO.buscar();
-            TecAdministrativoDAO tecAdministrativoDAO = new TecAdministrativoDAO();
-            List<TecAdministrativo> tecAdministrativos = tecAdministrativoDAO.buscar();
-            List<Locatario> locatarios = new ArrayList<Locatario>();
-            locatarios.addAll(alunos);
-            locatarios.addAll(professores);
-            locatarios.addAll(tecAdministrativos);
-
-
-
+            List<Locatario> locatarios = getLocatarios();
+            System.out.println(locatarios.toString());
             if(inputMatLogin.getText().equals("root")){
                 if( pwInput.getText().equals("root")){
                     new ZoomIn(adminAnchorPane).play();
                     adminAnchorPane.toFront();
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Usuario");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Senha inválida");
+                    alert.showAndWait();
                 }
             }
             for (Locatario locatario : locatarios) {
@@ -109,12 +352,10 @@ public class MainController {
                         new ZoomIn(userHomeAnchor).play();
                         userHomeAnchor.toFront();
                         welcomeLabel.setText("Bem vindo "+locatario.getNome());
-                    }else{
-                        System.out.println("Usuário ou senha inválida.");
+                        locatarioLogado = locatario;
+                    }
                     }
                 }
-            }
-
         }
         if(event.getSource().equals(btnCad)){
             new ZoomIn(pnlCad).play();
@@ -124,37 +365,35 @@ public class MainController {
         if(event.getSource().equals(cadLocatario)){
 
             LocatarioDAO dao = new LocatarioDAO();
-            if(CadChoiceBox.getValue().equals("Aluno")){
-                dao.inserir(new Aluno(
-                    tfMatricula.getText(),
-                    tfNome.getText(),
-                    pwField.getText()
-                    ),
-                    CadChoiceBox.getValue().toString()) ;
-            }
-            if(CadChoiceBox.getValue().equals("Professor")) {
-                dao.inserir(new Professor(
-                    tfMatricula.getText(),
-                    tfNome.getText(),
-                    pwField.getText()
-                    ),
-                    CadChoiceBox.getValue().toString()) ;
-            }
-            if(CadChoiceBox.getValue().equals("TecAdministrativo")){
-                dao.inserir(new TecAdministrativo(
-                    tfMatricula.getText(),
-                    tfNome.getText(),
-                    pwField.getText()
-                    ),
-                    CadChoiceBox.getValue().toString()) ;
-            }
 
-            System.out.println("Cadastro Realisado com sucesso!");
+                dao.inserir(new Locatario(
+                    tfMatricula.getText(),
+                    tfNome.getText(),
+                    pwField.getText(),
+                    CadChoiceBox.getValue())
+                );
+            tvUsuarios.getItems().add( new Locatario(
+                    tfMatricula.getText(),
+                    tfNome.getText(),
+                    pwField.getText(),
+                    CadChoiceBox.getValue())
+            );
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Acervo");
+            alert.setHeaderText(null);
+            alert.setContentText("Usuário cadastrado.");
+            alert.showAndWait();
             new ZoomIn(pnlLogin).play();
             pnlLogin.toFront();
         }
     }
     public void handleMouseEvent(MouseEvent event) {
+        if(event.getSource().equals(backCad)){
+            new ZoomIn(acervoList).play();
+            acervoList.toFront();
+        }
         if(event.getSource() == btnLogoutAdmin){
             new ZoomIn(loginPane).play();
             pwInput.setText("");
@@ -168,7 +407,6 @@ public class MainController {
         if(event.getSource() == btnCloseHome|| event.getSource() == btnClose ||  event.getSource().equals(btnCloseAdm)){
             System.exit(0);
         }
-
         if(event.getSource() .equals(btnBack)){
             new ZoomIn(pnlLogin).play();
             pwInput.setText("");

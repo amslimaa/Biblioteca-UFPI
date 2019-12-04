@@ -1,5 +1,6 @@
 package biblioteca;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,27 +54,15 @@ public class Biblioteca {
                 titulo,
                 autor));
     }
-    public void addAluno(String matricula, String nome, String senha){
-        this.getUsuarios().add(new Aluno(
+    public void addLocatário(String matricula, String nome, String senha, String tipo){
+        this.getUsuarios().add(new Locatario(
                 matricula,
                 nome,
-                senha
+                senha,
+                tipo
         ));
     }
-    public void addProfessor(String matricula, String nome, String senha){
-        this.getUsuarios().add(new Professor(
-                matricula,
-                nome,
-                senha
-        ));
-    }
-    public void addTecnico(String matricula, String nome, String senha){
-        this.getUsuarios().add( new TecAdministrativo(
-                matricula,
-                nome,
-                senha
-        ));
-    }
+
     public void emprestimo(Livro livro, Locatario locatario ){
         this.getEmprestimos().add(new Emprestimo(
                 livro,

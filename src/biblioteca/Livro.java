@@ -1,7 +1,10 @@
 package biblioteca;
 
+import java.sql.Date;
+
 public class Livro {
-    private int codigo, quanditade, ano;
+    private int codigo, quanditade;
+    private int ano;
     private String titulo, autor;
 
     public Livro(int codigo, int quanditade, int ano, String titulo, String autor) {

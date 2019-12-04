@@ -1,13 +1,10 @@
-import Connections.dao.AlunoDAO;
+import Connections.dao.EmprestimoDAO;
 import Connections.dao.LivroDAO;
-import Connections.dao.ProfessorDAO;
-import Connections.dao.TecAdministrativoDAO;
+import Connections.dao.LocatarioDAO;
 import biblioteca.*;
 
-import java.io.DataOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.ReadOnlyFileSystemException;
+import java.util.*;
 
 public class MainCLI {
 
@@ -26,8 +23,6 @@ public class MainCLI {
         if(resp == 1) cadastraUsuario();
         if(resp == 2) cadastroLivro();
         if(resp == 3) fazerEmprestimo();
-
-
         if(resp == 5) menuRelatorios();
 
         if (resp == 0) System.exit(0);
@@ -36,58 +31,55 @@ public class MainCLI {
 
     private static void menuRelatorios() {
         System.out.println("MENU RELATÓRIO");
-        System.out.println("1 - Listar Alunos");
-        System.out.println("2 - Listar Professores");
-        System.out.println("3 - Listar Tec. Administrativos");
-        System.out.println("4 - Listar Acervo");
+        System.out.println("1 - Listar Locatários");
+        System.out.println("2 - Listar Acervo");
         System.out.println("0 - Menu principal");
 
         int resp;
         Scanner scanner = new Scanner(System.in);
         resp = scanner.nextInt();
-        if(resp == 1) {System.out.println(getAlunos()); menuRelatorios();}
-        if(resp == 2) {System.out.println(getProfessores()); menuRelatorios();}
-        if(resp == 3) {System.out.println(getTecAdm()); menuRelatorios();}
-        if(resp == 4) {System.out.println(getLivros()); menuRelatorios();}
+        if(resp == 1) {System.out.println(getLocatarios()); menuRelatorios();}
+        if(resp == 2) {System.out.println(getLivros()); menuRelatorios();}
         if(resp == 0) menu();
 
     }
 
-    private static List<Aluno> getAlunos(){
-        AlunoDAO alunoDAO = new AlunoDAO();
-        List<Aluno> alunos = alunoDAO.buscar();
-        return  alunos;
-    }
 
-    private static List<Professor> getProfessores(){
-        ProfessorDAO professorDAO = new ProfessorDAO();
-        List<Professor> professors = professorDAO.buscar();
-        return professors;
-    }
-    private static List<TecAdministrativo> getTecAdm(){
-        TecAdministrativoDAO tecAdministrativoDAO = new TecAdministrativoDAO();
-        List<TecAdministrativo> tecAdministrativos = tecAdministrativoDAO.buscar();
-        return tecAdministrativos;
-
-    }
     private static List<Livro> getLivros(){
         LivroDAO livroDAO = new LivroDAO();
         List<Livro> livros = livroDAO.buscar();
         return livros;
     }
     public static List<Locatario> getLocatarios(){
-        List<Aluno> alunos = getAlunos();
-        List<Professor> professors = getProfessores();
-        List<TecAdministrativo> tecAdministrativos = getTecAdm();
+        LocatarioDAO dao = new LocatarioDAO();
+        List<Locatario> locatarios = dao.buscar();
 
-        List<Locatario> locatarios = new ArrayList<Locatario>();
-        locatarios.addAll(alunos);
-        locatarios.addAll(professors);
-        locatarios.addAll(tecAdministrativos);
         return locatarios;
     }
     private static void fazerEmprestimo() {
         List<Locatario> locatarios = getLocatarios();
+        List<Livro> livros = getLivros();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o codigo do livro");
+        String codigo = scanner.nextLine();
+        System.out.println("Digite o a matricula do usuario: ");
+        String matricula = scanner.nextLine();
+
+        for (Livro livro: livros) {
+                if(livro.getCodigo() == Integer.parseInt(codigo)){
+                    for (Locatario locatario: locatarios) {
+                        if (locatario.getMatricula().equals(matricula)){
+                            EmprestimoDAO dao = new EmprestimoDAO();
+                            dao.inserir( new Emprestimo(livro,locatario));
+                            menu();
+                        }
+                    }
+                }
+        }
+
+
+
+
 
     }
 
@@ -117,51 +109,22 @@ public class MainCLI {
         System.out.println("Livro cadastrado!");
         menu();
 
-
     }
 
     private static void cadastraUsuario() {
         System.out.println("MENU CADASTRO");
-        System.out.println("1 - Aluno");
-        System.out.println("2 - Professor");
-        System.out.println("3 - Tec Adm.");
+        System.out.println("1 - Locatário");
         System.out.println("0 - Menu");
         Scanner scanner = new Scanner(System.in);
         int resp = scanner.nextInt();
 
         if(resp == 1) cadastroAluno();
-        if(resp == 2) cadastroProfesor();
-        if(resp == 3) cadastroTecAdm();
         if(resp == 0) menu();
     }
 
-    private static void cadastroTecAdm() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o nome");
-        String nome = scanner.nextLine();
-        System.out.println("Digite a matricula");
-        String matricula = scanner.nextLine();
-        System.out.println("Digite a senha: ");
-        String senha = scanner.nextLine();
-        TecAdministrativoDAO dao = new TecAdministrativoDAO();
-        dao.inserir(new TecAdministrativo(matricula,nome,senha));
-        System.out.println("Tec cadastrado com sucesso!");
-        cadastraUsuario();
-    }
 
-    private static void cadastroProfesor() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o nome");
-        String nome = scanner.nextLine();
-        System.out.println("Digite a matricula");
-        String matricula = scanner.nextLine();
-        System.out.println("Digite a senha: ");
-        String senha = scanner.nextLine();
-        ProfessorDAO dao = new ProfessorDAO();
-        dao.inserir(new Professor(matricula,nome,senha));
-        System.out.println("Professor cadastrado com sucesso!");
-        cadastraUsuario();
-    }
+
+
 
     private static void cadastroAluno() {
         Scanner scanner = new Scanner(System.in);
@@ -171,9 +134,11 @@ public class MainCLI {
         String matricula = scanner.nextLine();
         System.out.println("Digite a senha: ");
         String senha = scanner.nextLine();
-        AlunoDAO dao = new AlunoDAO();
-        dao.inserir(new Aluno(matricula,nome,senha));
-        System.out.println("Aluno cadastrado com sucesso!");
+        System.out.println("Digite o tipo: ");
+        String tipo = scanner.nextLine();
+        LocatarioDAO dao = new LocatarioDAO();
+        dao.inserir(new Locatario(matricula,nome,senha, tipo));
+        System.out.println("Locatário cadastrado com sucesso!");
         cadastraUsuario();
     }
 

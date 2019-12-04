@@ -4,8 +4,11 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,13 +21,98 @@
 
 <StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
-      <AnchorPane fx:id="userHomeAnchor" prefHeight="499.0" prefWidth="676.0">
+      <AnchorPane fx:id="adminAnchorPane" prefHeight="499.0" prefWidth="760.0">
          <children>
-            <Pane fx:id="homePane" prefHeight="499.0" prefWidth="760.0" style="-fx-background-color: #7159C1;">
+            <Pane prefHeight="499.0" prefWidth="760.0" style="-fx-background-color: #7159C1;">
                <children>
-                  <HBox layoutX="679.0" layoutY="5.0" prefHeight="16.0" prefWidth="43.0" spacing="5.0">
+                  <Label layoutX="169.0" layoutY="7.0" text="Administração - Biblioteca UFPI" textFill="WHITE">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="5.0" layoutY="65.0" prefHeight="426.0" prefWidth="751.0" style="-fx-background-color: #505050; -fx-background-radius: 5;">
                      <children>
-                        <Circle fx:id="btnMin1" fill="#7159c1" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
+                        <StackPane layoutX="160.0" layoutY="14.0" prefHeight="404.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;">
+                           <children>
+                              <Pane fx:id="reservasPane" prefHeight="336.0" prefWidth="495.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
+                                 <children>
+                                    <Label layoutX="232.0" layoutY="14.0" text="Reservas" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="emprestimosPane" prefHeight="336.0" prefWidth="495.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
+                                 <children>
+                                    <Label layoutX="232.0" layoutY="14.0" text="Emprestimos" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="acervoPane" prefHeight="387.0" prefWidth="527.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
+                                 <children>
+                                    <StackPane layoutX="8.0" layoutY="7.0" prefHeight="388.0" prefWidth="555.0" style="-fx-background-radius: 5;">
+                                       <children>
+                                          <Pane fx:id="cadLivroPane" prefHeight="391.0" prefWidth="555.0" style="-fx-background-color: #6C55B8; -fx-background-radius: 5;">
+                                             <children>
+                                                <TextField fx:id="cadCodLivro" layoutX="181.0" layoutY="109.0" prefHeight="25.0" prefWidth="190.0" promptText="Códgo" />
+                                                <Button fx:id="btnCadLivro" layoutX="184.0" layoutY="297.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="190.0" styleClass="btn" stylesheets="@css/styles.css" text="Cadastrar" textFill="#7c62da" />
+                                                <Label layoutX="202.0" layoutY="47.0" text="Cadastrar Livro " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="cadTitulo" layoutX="182.0" layoutY="182.0" prefHeight="25.0" prefWidth="190.0" promptText="Titulo" />
+                                                <TextField fx:id="cadAutor" layoutX="183.0" layoutY="218.0" prefHeight="25.0" prefWidth="190.0" promptText="Autor" />
+                                                <Spinner fx:id="spinerQtd" layoutX="181.0" layoutY="146.0" prefHeight="25.0" prefWidth="190.0" />
+                                                <DatePicker fx:id="cadDatePublicacao" layoutX="183.0" layoutY="254.0" prefHeight="25.0" prefWidth="190.0" promptText="Publicação" />
+                                                <ImageView fx:id="backCad" fitHeight="36.0" fitWidth="24.0" layoutX="131.0" layoutY="48.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@icons/icons8_back_100px.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </Pane>
+                                          <Pane fx:id="acervoList" prefHeight="391.0" prefWidth="555.0" style="-fx-background-color: #6C55B8; -fx-background-radius: 5;">
+                                             <children>
+                                                <Button fx:id="btnNovoLivro" layoutX="219.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Novo Livro" textFill="#7c62da" />
+                                                <Label layoutX="237.0" layoutY="2.0" text="Acervo" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="25.0" />
+                                                   </font>
+                                                </Label>
+                                                <TableView fx:id="acervoTabela" layoutX="13.0" layoutY="42.0" prefHeight="283.0" prefWidth="535.0" style="-fx-border-radius: 5;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </StackPane>
+                                 </children></Pane>
+                              <Pane fx:id="usuariosPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #7159C1; -fx-background-radius: 5;">
+                                 <children>
+                                    <StackPane layoutX="28.0" layoutY="55.0" prefHeight="335.0" prefWidth="526.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
+                                       <children>
+                                          <Pane prefHeight="200.0" prefWidth="200.0" />
+                                          <TableView fx:id="tvUsuarios" prefHeight="332.0" prefWidth="526.0" />
+                                       </children>
+                                    </StackPane>
+                                    <Label layoutX="196.0" layoutY="14.0" text="Usuários Cadastrados" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                        <ImageView fitHeight="144.0" fitWidth="123.0" layoutX="33.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/ufpi-logo.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="btnAcervo" layoutX="20.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Acervo" textFill="#7c62da" />
+                        <Button fx:id="btnUser" layoutX="20.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Usuarios" textFill="#7c62da" />
+                        <Button fx:id="btnEmprestimos" layoutX="20.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Emprestimos" textFill="#7c62da" />
+                        <Button fx:id="btnReservas" layoutX="20.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Reservas" textFill="#7c62da" />
+                     </children>
+                  </Pane>
+                  <HBox layoutX="685.0" layoutY="3.0" prefHeight="16.0" prefWidth="43.0" spacing="5.0">
+                     <children>
+                        <Circle fx:id="btnMin11" fill="#7159c1" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -34,7 +122,7 @@
                               <Insets />
                            </HBox.margin>
                         </Circle>
-                        <Circle fx:id="btnCloseHome" fill="#eb5555" onMouseClicked="#handleMouseEvent" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
+                        <Circle fx:id="btnCloseAdm" fill="#eb5555" onMouseClicked="#handleMouseEvent" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -44,19 +132,15 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <ImageView fx:id="btnLogout" fitHeight="22.0" fitWidth="27.0" layoutX="15.0" layoutY="19.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
+                  <ImageView fx:id="btnLogoutAdmin" fitHeight="35.0" fitWidth="30.0" layoutX="7.0" layoutY="13.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
                      <image>
                         <Image url="@icons/icons8_back_100px.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="welcomeLabel" layoutX="46.0" layoutY="41.0" textFill="WHITE">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
                </children>
             </Pane>
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="751.0" style="-fx-background-color: #FFFFFF;" stylesheets="@css/styles.css">
          <children>
             <AnchorPane prefHeight="499.0" prefWidth="338.0" style="-fx-background-color: #7159C1;">
@@ -80,8 +164,8 @@
                                     <TextField fx:id="tfNome" layoutX="5.100000381469727" layoutY="129.0" prefHeight="35.0" prefWidth="277.0" promptText="Nome" />
                                     <TextField fx:id="tfMatricula" layoutX="4.100000381469727" layoutY="181.0" prefHeight="35.0" prefWidth="277.0" promptText="Matricula" />
                                     <PasswordField fx:id="pwField" layoutX="4.100000381469727" layoutY="235.0" prefHeight="35.0" prefWidth="277.0" promptText="Senha" />
-                                    <ChoiceBox fx:id="CadChoiceBox" layoutX="4.100000381469727" layoutY="291.0" prefHeight="28.0" prefWidth="277.0" />
                                     <Button fx:id="cadLocatario" layoutX="4.100000381469727" layoutY="333.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="277.0" styleClass="btn" text="Cadastrar" />
+                                    <ChoiceBox fx:id="CadChoiceBox" layoutX="5.0" layoutY="287.0" prefHeight="25.0" prefWidth="275.0" />
                                  </children>
                               </Group>
                               <ImageView fx:id="btnBack" fitHeight="22.0" fitWidth="27.0" layoutX="19.0" layoutY="27.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
@@ -147,55 +231,13 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="adminAnchorPane" prefHeight="499.0" prefWidth="760.0">
+      <AnchorPane fx:id="userHomeAnchor" prefHeight="499.0" prefWidth="676.0">
          <children>
-            <Pane prefHeight="499.0" prefWidth="760.0" style="-fx-background-color: #7159C1;">
+            <Pane fx:id="homePane" prefHeight="499.0" prefWidth="760.0" style="-fx-background-color: #7159C1;">
                <children>
-                  <Label layoutX="169.0" layoutY="7.0" text="Administração - Biblioteca UFPI" textFill="WHITE">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Pane layoutX="27.0" layoutY="97.0" prefHeight="359.0" prefWidth="695.0" style="-fx-background-color: #505050; -fx-background-radius: 5;">
+                  <HBox layoutX="679.0" layoutY="5.0" prefHeight="16.0" prefWidth="43.0" spacing="5.0">
                      <children>
-                        <StackPane layoutX="176.0" layoutY="14.0" prefHeight="336.0" prefWidth="505.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;">
-                           <children>
-                              <Pane fx:id="reservasPane" prefHeight="336.0" prefWidth="495.0" style="-fx-background-color: #FFF;">
-                                 <children>
-                                    <Label layoutX="232.0" layoutY="14.0" text="Reservas" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="emprestimosPane" prefHeight="336.0" prefWidth="495.0" style="-fx-background-color: #FFF;">
-                                 <children>
-                                    <Label layoutX="232.0" layoutY="14.0" text="Emprestimos" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="usuariosPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFF;">
-                                 <children>
-                                    <Label layoutX="226.0" layoutY="23.0" text="Usuarios" />
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="acervoPane" prefHeight="336.0" prefWidth="495.0" style="-fx-background-color: #FFF;">
-                                 <children>
-                                    <Label layoutX="232.0" layoutY="14.0" text="Acervo" />
-                                    <Pane layoutX="280.0" layoutY="89.0" prefHeight="232.0" prefWidth="214.0" style="-fx-background-color: #6C55B8; -fx-border-radius: 5;" />
-                                 </children></Pane>
-                           </children>
-                        </StackPane>
-                        <ImageView fitHeight="124.0" fitWidth="98.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@icons/ufpi-logo.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="btnAcervo" layoutX="27.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" text="Acervo" textFill="#7c62da" />
-                        <Button fx:id="btnUser" layoutX="27.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" text="Usuarios" textFill="#7c62da" />
-                        <Button fx:id="btnEmprestimos" layoutX="27.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" text="Emprestimos" textFill="#7c62da" />
-                        <Button fx:id="btnReservas" layoutX="27.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" text="Reservas" textFill="#7c62da" />
-                     </children>
-                  </Pane>
-                  <HBox layoutX="685.0" layoutY="3.0" prefHeight="16.0" prefWidth="43.0" spacing="5.0">
-                     <children>
-                        <Circle fx:id="btnMin11" fill="#7159c1" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
+                        <Circle fx:id="btnMin1" fill="#7159c1" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -205,7 +247,7 @@
                               <Insets />
                            </HBox.margin>
                         </Circle>
-                        <Circle fx:id="btnCloseAdm" fill="#eb5555" onMouseClicked="#handleMouseEvent" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
+                        <Circle fx:id="btnCloseHome" fill="#eb5555" onMouseClicked="#handleMouseEvent" radius="8.0" stroke="WHITE" strokeType="OUTSIDE" styleClass="btn">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -215,14 +257,47 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <ImageView fx:id="btnLogoutAdmin" fitHeight="35.0" fitWidth="30.0" layoutX="7.0" layoutY="13.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
+                  <ImageView fx:id="btnLogout" fitHeight="22.0" fitWidth="27.0" layoutX="15.0" layoutY="19.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true" styleClass="btnBack">
                      <image>
                         <Image url="@icons/icons8_back_100px.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="welcomeLabel" layoutX="46.0" layoutY="41.0" textFill="WHITE">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <StackPane layoutX="168.0" layoutY="135.0" prefHeight="345.0" prefWidth="576.0">
+                     <children>
+                        <Pane fx:id="pnLivros" prefHeight="345.0" prefWidth="563.0" style="-fx-background-color: #535353; -fx-background-radius: 5;">
+                           <children>
+                              <TableView fx:id="tvUserLivros" layoutX="24.0" layoutY="50.0" prefHeight="240.0" prefWidth="535.0" />
+                              <Label layoutX="267.0" layoutY="5.0" text="Acervo " textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnDoEmprestimos" layoutX="233.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="151.0" styleClass="btn" stylesheets="@css/styles.css" text="Realizar Emprestimo" textFill="#7c62da" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pnEmprestimos" prefHeight="345.0" prefWidth="534.0" style="-fx-background-color: #535353; -fx-background-radius: 5;">
+                           <children>
+                              <TableView fx:id="tvEmprestimos" layoutX="104.0" layoutY="53.0" prefHeight="240.0" prefWidth="423.0" />
+                              <Label layoutX="251.0" layoutY="14.0" prefHeight="30.0" prefWidth="183.0" text="Meus Emprestimos" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnUsersAcervo1" layoutX="264.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Devolver" textFill="#7c62da" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+                  <Button fx:id="btnEmprestimos" layoutX="14.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Meus Emprestimos" textFill="#7c62da" />
+                  <Button fx:id="btnUsersAcervo" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Acervo" textFill="#7c62da" />
+                  <Button fx:id="btnEmprestimos1" layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn" stylesheets="@css/styles.css" text="Reservas" textFill="#7c62da" />
                </children>
             </Pane>
-         </children>
-      </AnchorPane>
+         </children></AnchorPane>
    </children>
 </StackPane>

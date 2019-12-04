@@ -1,7 +1,6 @@
 package Connections.dao;
 
 import Connections.ConnectionFactory;
-import biblioteca.Aluno;
 import biblioteca.Livro;
 
 import java.sql.Connection;
